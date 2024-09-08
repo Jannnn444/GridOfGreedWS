@@ -10,16 +10,16 @@ import SwiftUI
 struct ContentView: View {
     
     // Create a 2D array to track which squares are filled
-    @State private var isFilled: [Bool] = Array(repeating: false, count: 50)
+    @State private var isFilled: [Bool] = Array(repeating: false, count: 500)
     
     // Define a grid with 5 squares
-    let square = Array(repeating: GridItem(.fixed(50), spacing: 0), count: 5)
+    let square = Array(repeating: GridItem(.fixed(50), spacing: 0), count: 20)
     
     var body: some View {
-        ScrollView {
+        ScrollView([.horizontal, .vertical]) {
             LazyVGrid(columns: square, spacing: 0) { // Remove spacing between columns
                 // Loop through 25 items (5x5 grid)
-                ForEach(0..<50, id: \.self) { index in
+                ForEach(0..<500, id: \.self) { index in
                     Rectangle()
                         .fill(isFilled[index] ? Color.cyan : Color.blue)
                         .border(Color.cyan)
@@ -32,13 +32,14 @@ struct ContentView: View {
             }
             .padding(.horizontal, 0)
         }
-      
-        Text("Greedy folks...")
-            .bold()
-            .fontDesign(.serif)
-            .padding()
-            .foregroundStyle(Color.cyan)
-        
+        ZStack {
+            Text("Greedy folks...")
+                .bold()
+                .fontDesign(.serif)
+                .padding()
+                .foregroundStyle(Color.cyan)
+                .opacity(0.5)
+        }
     }
 }
 
