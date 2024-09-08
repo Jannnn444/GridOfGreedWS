@@ -30,6 +30,8 @@ struct ContentView: View {
         }.padding()
       
         Text("Greedy folks...")
+            .bold()
+            .fontDesign(.serif)
             .padding()
             .foregroundStyle(Color.cyan)
     }
