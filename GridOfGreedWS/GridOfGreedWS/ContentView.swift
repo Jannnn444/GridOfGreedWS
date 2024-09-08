@@ -21,7 +21,7 @@ struct ContentView: View {
             ForEach(0..<25, id: \.self) { index in
                 Image(systemName: isFilled[index] ? "square.fill" : "square")
                     .imageScale(.large)
-                    .foregroundStyle(Color.secondary)
+                    .foregroundStyle(Color.cyan)
                     .onTapGesture {
                         isFilled[index].toggle()
                     }
