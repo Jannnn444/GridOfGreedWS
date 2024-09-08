@@ -20,17 +20,17 @@ struct ContentView: View {
             LazyVGrid(columns: square, spacing: 0) { // Remove spacing between columns
                 // Loop through 25 items (5x5 grid)
                 ForEach(0..<50, id: \.self) { index in
-                    Image(systemName: isFilled[index] ? "square.fill" : "square")
-                        .resizable()
-                        .imageScale(.large)
-                        .foregroundStyle(Color.cyan)
+                    Rectangle()
+                        .fill(isFilled[index] ? Color.cyan : Color.blue)
+                        .border(Color.cyan)
+                        .cornerRadius(5)
                         .onTapGesture {
                             isFilled[index].toggle()
                         }
                         .frame(width: 50, height: 50)
                 }
             }
-            .padding(.vertical, 30)
+            .padding(.horizontal, 0)
         }
       
         Text("Greedy folks...")
