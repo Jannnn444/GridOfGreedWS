@@ -42,7 +42,7 @@ struct ContentView: View {
                 .foregroundStyle(Color.cyan)
                 .opacity(0.5)
         }
-        .navigationViewStyle(StackNavigationViewStyle()) 
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 
