@@ -11,4 +11,6 @@ enum Tabs {
     case world
     case paint
     case userNotes
+    case bag
+    case shop
 }
