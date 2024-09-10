@@ -11,15 +11,13 @@ struct TabView: View {
     
     @Binding var tabState: Tabs
     
-    @Binding var tabList: Tabs
-    
     var body: some View {
         VStack {
             // Button1
             Button {
                 tabState = .world
             } label: {
-                HStack {
+                VStack {
                     Image(systemName: "gamecontroller")
                     Text("World")
                         .font(.system(size: 10, weight: .regular, design: .serif))
@@ -30,7 +28,7 @@ struct TabView: View {
             Button {
                 tabState = .paint
             } label: {
-                HStack {
+                VStack {
                     Image(systemName: "paintbrush")
                     Text("Paint")
                         .font(.system(size: 10, weight: .regular, design: .serif))
@@ -41,7 +39,7 @@ struct TabView: View {
             Button {
                 tabState = .userNotes
             } label: {
-                HStack {
+                VStack {
                     Image(systemName: "note.text")
                     Text("Paint")
                         .font(.system(size: 10, weight: .regular, design: .serif))
@@ -52,7 +50,7 @@ struct TabView: View {
             Button {
                 tabState = .bag
             } label: {
-                HStack {
+                VStack {
                     Image(systemName: "bag")
                     Text("Note")
                         .font(.system(size: 10, weight: .regular, design: .serif))
@@ -63,7 +61,7 @@ struct TabView: View {
             Button {
                 tabState = .shop
             } label: {
-                HStack {
+                VStack {
                     Image(systemName: "cart")
                     Text("Note")
                         .font(.system(size: 10, weight: .regular, design: .serif))

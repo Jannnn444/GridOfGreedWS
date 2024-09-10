@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     
     @StateObject var websocketManager = WebSocketManager(gridSize: 20)
-    @State private var colorChoice = Color.indigo
+    @State private var colorChoice = Color.yellow  // here should receive changes from homepage!!!
     
     // Create a 2D array to track which squares are filled
     @State private var isFilled: [Bool] = Array(repeating: false, count: 500)
@@ -20,51 +20,56 @@ struct ContentView: View {
     
     var body: some View {
         
-        NavigationView {
+        
             
-            ScrollView([.horizontal, .vertical]) {
-                LazyVGrid(columns: squares, spacing: 0) { // Remove spacing between columns
-                    // Loop through 25 items (5x5 grid)
-                    ForEach(0..<500, id: \.self) { index in
-                        Rectangle()
-                            .fill(isFilled[index] ? colorChoice : Color.white)
-                            .border(Color.clear)
-                            .cornerRadius(5)
-                            .onTapGesture {
-                                isFilled[index].toggle()
-                                websocketManager.sendMessage(message: "hey woof tapping my gird!")
-                            }
-                            .frame(width: 50, height: 50)
+        ScrollView([.horizontal, .vertical]) {
+            VStack{
+                VStack {
+                    HStack {
+                        ColorPicker("", selection: $colorChoice)
+                            .labelsHidden()
                     }
-                }
+                    Spacer()
+                    LazyVGrid(columns: squares, spacing: 0) { // Remove spacing between columns
+                        // Loop through 25 items (5x5 grid)
+                        ForEach(0..<500, id: \.self) { index in
+                            Rectangle()
+                                .fill(isFilled[index] ? colorChoice : Color.white)
+                                .border(Color.secondary)
+                                .cornerRadius(5)
+                                .onTapGesture {
+                                    isFilled[index].toggle()
+                                    websocketManager.sendMessage(message: "hey woof tapping my gird!")
+                                }
+                                .frame(width: 50, height: 50)
+                        }
+                    }
+                } 
                 Text("This is the edge of this greedy grid...")
                     .bold()
                     .shadow(radius: 10)
                     .font(.largeTitle)
                     .fontDesign(.serif)
-                    .padding()
                     .foregroundStyle(Color.blue)
                     .opacity(0.5)
+                
+                
+                //        .padding(30)
+                
+                
+                //        Text("Greedy folks...")
+                //            .bold()
+                //            .fontDesign(.serif)
+                //            .foregroundStyle(Color.cyan)
+                //            .opacity(0.5)
+                //        .navigationSplitViewStyle(.balanced)
+                //        .navigationViewStyle(StackNavigationViewStyle())
+                //
+                //     ColorPicker("", selection: $colorChoice)
+                //            .labelsHidden()
+                //
             }
-           
         }
-        .padding(30)
-        
-        
-        Text("Greedy folks...")
-            .bold()
-            .fontDesign(.serif)
-            .padding()
-            .foregroundStyle(Color.cyan)
-            .opacity(0.5)
-        .navigationSplitViewStyle(.balanced)
-        .navigationViewStyle(StackNavigationViewStyle())
-        
-        ColorPicker("", selection: $colorChoice)
-            .padding(.horizontal)
-        
-        
-           
     }
 }
 
