@@ -10,6 +10,7 @@ import SwiftUI
 struct ContentView: View {
     
     @StateObject var websocketManager = WebSocketManager(gridSize: 20)
+    @State private var colorChoice = Color.indigo
     
     // Create a 2D array to track which squares are filled
     @State private var isFilled: [Bool] = Array(repeating: false, count: 500)
@@ -26,7 +27,7 @@ struct ContentView: View {
                     // Loop through 25 items (5x5 grid)
                     ForEach(0..<500, id: \.self) { index in
                         Rectangle()
-                            .fill(isFilled[index] ? Color.white : Color.secondary)
+                            .fill(isFilled[index] ? colorChoice : Color.white)
                             .border(Color.clear)
                             .cornerRadius(5)
                             .onTapGesture {
@@ -47,6 +48,9 @@ struct ContentView: View {
             }
            
         }
+        .padding(30)
+        
+        
         Text("Greedy folks...")
             .bold()
             .fontDesign(.serif)
@@ -55,6 +59,10 @@ struct ContentView: View {
             .opacity(0.5)
         .navigationSplitViewStyle(.balanced)
         .navigationViewStyle(StackNavigationViewStyle())
+        
+        ColorPicker("", selection: $colorChoice)
+            .padding(.horizontal)
+           
     }
 }
 
