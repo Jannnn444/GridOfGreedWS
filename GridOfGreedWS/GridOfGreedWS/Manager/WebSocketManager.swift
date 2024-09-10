@@ -23,7 +23,7 @@ class WebSocketManager: ObservableObject {
     //MARK: Established a connection to the websocket server.
     func connect() {
         // Create an url object
-        guard let url = URL(string: "wss://localhost:6666/ws") else { return }
+        guard let url = URL(string: "ws://localhost:6666/ws") else { return }
         websocketTask = URLSession.shared.webSocketTask(with: url)
         websocketTask?.resume()
         
@@ -34,10 +34,12 @@ class WebSocketManager: ObservableObject {
     func receiveMessage() {
         websocketTask?.receive { [weak self] result in
             switch result {
+                
             case .failure(let error):
                 print("Error when receiving messages :\(error)")
             case .success(let message):
                 print("Received Message: \(message)")
+                
                 switch message {
                 case .string(let text):
                     print("Received string message: \(text)")
@@ -48,6 +50,16 @@ class WebSocketManager: ObservableObject {
             }
             //handle recieved message
             
+        }
+    }
+    
+    func sendMessage(message: String) {
+        let message = URLSessionWebSocketTask.Message.string(message)
+        
+        websocketTask?.send(message) { error in
+            if let error  = error {
+                print("Sending Websocket error : \(error)")
+            }
         }
     }
     
