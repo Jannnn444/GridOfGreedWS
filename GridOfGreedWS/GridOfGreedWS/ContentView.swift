@@ -62,6 +62,8 @@ struct ContentView: View {
         
         ColorPicker("", selection: $colorChoice)
             .padding(.horizontal)
+        
+        
            
     }
 }

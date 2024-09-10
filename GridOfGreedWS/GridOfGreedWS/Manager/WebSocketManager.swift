@@ -21,9 +21,14 @@ class WebSocketManager: ObservableObject {
         // [false, false, false, false, false]
     }
     //MARK: Established a connection to the websocket server.
+    /// <#Description#>
     func connect() {
         // Create an url object
-        guard let url = URL(string: "ws://localhost:6666/ws") else { return }
+        guard let url = URL(string: "ws://localhost:6666/ws") else {
+           print("Invalid WebSocket URL")
+            return
+        }
+        // Ensure URLSessionWebSocketTask is not nil before calling resume()
         websocketTask = URLSession.shared.webSocketTask(with: url)
         websocketTask?.resume()
         
@@ -36,7 +41,7 @@ class WebSocketManager: ObservableObject {
             switch result {
                 
             case .failure(let error):
-                print("Error when receiving messages :\(error)")
+                print("Error when receiving messages :\(error.localizedDescription)")
             case .success(let message):
                 print("Received Message: \(message)")
                 
@@ -45,35 +50,34 @@ class WebSocketManager: ObservableObject {
                     print("Received string message: \(text)")
                 case .data(let data):
                     print("Received binary data: \(data)")
+                @unknown default:
+                    print("Unknown message type received")
                 }
+                
+                //Keep receiving datas
                 self?.receiveMessage() // recursive -> loops keep going
             }
             //handle recieved message
             
         }
     }
-    
+    // Send message to WebSocket server
     func sendMessage(message: String) {
         let message = URLSessionWebSocketTask.Message.string(message)
-        
         websocketTask?.send(message) { error in
             if let error  = error {
-                print("Sending Websocket error : \(error)")
+                print("Sending Websocket error : \(error.localizedDescription)")
+            } else {
+                print("Message sent successfully")
             }
         }
     }
     
     func disconnect() {
         websocketTask?.cancel(with: .goingAway, reason: nil)
+        print("Disconnected from WebsSocket server")
     }
 }
 
-
-
-//class Person{
-//    var name: String
-//    
-//    init(name: String) {
-//        self.name = name
-//    }
-//}
+//chmod +x ./ws-server
+//sudo ./ws-server
