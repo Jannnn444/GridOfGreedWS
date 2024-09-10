@@ -26,8 +26,8 @@ struct ContentView: View {
                     // Loop through 25 items (5x5 grid)
                     ForEach(0..<500, id: \.self) { index in
                         Rectangle()
-                            .fill(isFilled[index] ? Color.cyan : Color.blue)
-                            .border(Color.cyan)
+                            .fill(isFilled[index] ? Color.white : Color.secondary)
+                            .border(Color.clear)
                             .cornerRadius(5)
                             .onTapGesture {
                                 isFilled[index].toggle()
