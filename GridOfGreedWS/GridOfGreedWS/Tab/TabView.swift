@@ -22,7 +22,7 @@ struct TabView: View {
                     Text("World")
                         .font(.system(size: 10, weight: .regular, design: .serif))
                 }
-            }
+            }.padding(.bottom, 10) .padding(.leading, -10)
             
             // Button2
             Button {
@@ -33,7 +33,7 @@ struct TabView: View {
                     Text("Paint")
                         .font(.system(size: 10, weight: .regular, design: .serif))
                 }
-            }
+            }.padding(.bottom, 10) .padding(.leading, -10)
             
             //Button3
             Button {
@@ -44,7 +44,7 @@ struct TabView: View {
                     Text("Paint")
                         .font(.system(size: 10, weight: .regular, design: .serif))
                 }
-            }
+            }.padding(.bottom, 10) .padding(.leading, -10)
             
             //Button4
             Button {
@@ -55,7 +55,7 @@ struct TabView: View {
                     Text("Note")
                         .font(.system(size: 10, weight: .regular, design: .serif))
                 }
-            }
+            }.padding(.bottom, 10) .padding(.leading, -10)
             
             //Button5
             Button {
@@ -66,7 +66,7 @@ struct TabView: View {
                     Text("Note")
                         .font(.system(size: 10, weight: .regular, design: .serif))
                 }
-            }
+            }.padding(.bottom, 10) .padding(.leading, -10)
         }
         
         
