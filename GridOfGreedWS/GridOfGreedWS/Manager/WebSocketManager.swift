@@ -18,6 +18,7 @@ class WebSocketManager: ObservableObject {
     init(gridSize: Int) {
         self.grid = Array(repeating: true, count: gridSize)
         connect() //eveytime it run itself
+        receiveMessage()
         // [false, false, false, false, false]
     }
     //MARK: Established a connection to the websocket server.
@@ -44,12 +45,15 @@ class WebSocketManager: ObservableObject {
                 print("Error when receiving messages :\(error.localizedDescription)")
             case .success(let message):
                 print("Received Message: \(message)")
-                
+
                 switch message {
                 case .string(let text):
                     print("Received string message: \(text)")
                 case .data(let data):
-                    print("Received binary data: \(data)")
+                    // Explicitly capture self here
+                    print("My data for debug: \(data)")
+                    let result = self?.decodedJson(dataTiBeDecode: data)
+                    print("Received binary data: \(result)")
                 @unknown default:
                     print("Unknown message type received")
                 }
@@ -76,6 +80,20 @@ class WebSocketManager: ObservableObject {
     func disconnect() {
         websocketTask?.cancel(with: .goingAway, reason: nil)
         print("Disconnected from WebsSocket server")
+    }
+    
+    func decodedJson(dataTiBeDecode: Data) -> [Bool] {
+        do {
+            let decodedGrid = try JSONDecoder().decode([Bool].self, from: dataTiBeDecode)
+            DispatchQueue.main.async { [weak self] in
+                self?.grid = decodedGrid //use self explicity
+            }
+            return decodedGrid
+        } catch {
+            print("Error decoding grid data: \(error)")
+            return []
+        }
+        
     }
 }
 

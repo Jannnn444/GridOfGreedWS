@@ -19,9 +19,7 @@ struct ContentView: View {
     let squares = Array(repeating: GridItem(.fixed(50), spacing: 0), count: 20)
     
     var body: some View {
-        
-        
-            
+  
         ScrollView([.horizontal, .vertical]) {
             VStack{
                 VStack {
@@ -39,7 +37,7 @@ struct ContentView: View {
                                 .cornerRadius(5)
                                 .onTapGesture {
                                     isFilled[index].toggle()
-                                    websocketManager.sendMessage(message: "hey woof tapping my gird!")
+                                    websocketManager.sendMessage(message: "startgame")
                                 }
                                 .frame(width: 50, height: 50)
                         }
