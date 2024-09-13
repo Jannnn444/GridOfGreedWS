@@ -11,6 +11,8 @@ import SwiftUI
 struct GridOfGreedWSApp: App {
     var body: some Scene {
         WindowGroup {
+//            ContentView()
+//            HomePage()
             ContentView()
         }
     }
