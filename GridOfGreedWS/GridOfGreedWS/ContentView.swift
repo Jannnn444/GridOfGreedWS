@@ -38,6 +38,7 @@ struct ContentView: View {
                                 .onTapGesture {
                                     isFilled[index].toggle()
                                     websocketManager.sendMessage(message: "startgame")
+                                    websocketManager.receiveMessage()
                                 }
                                 .frame(width: 50, height: 50)
                         }

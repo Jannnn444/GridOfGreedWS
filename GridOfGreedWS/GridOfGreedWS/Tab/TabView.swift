@@ -65,6 +65,7 @@ struct TabView: View {
                     Image(systemName: "cart")
                     Text("Note")
                         .font(.system(size: 10, weight: .regular, design: .serif))
+                        .bold()
                 }
             }.padding(.bottom, 10) .padding(.leading, -10)
         }
