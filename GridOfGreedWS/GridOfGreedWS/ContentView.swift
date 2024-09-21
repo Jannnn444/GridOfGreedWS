@@ -41,7 +41,7 @@ struct ContentView: View {
                                 .cornerRadius(5)
                                 .onTapGesture {
                                     isFilled[index].toggle()
-                                    websocketManager.sendMessage(message: "startgame")
+//                                    websocketManager.sendMessage(message: "startgame")
                                 }
                                 .frame(width: 50, height: 50)
                         }
@@ -61,8 +61,11 @@ struct ContentView: View {
                     isFilled = newGridData // Update the grid with the new data
                 }
             }
-        }
+        }.onAppear(perform: {
+            websocketManager.sendMessage(message: "startgame")
+        })
     }
+        
 }
 // 20240921 TODO: why UI didnt triggerd repaint when receiving the [Bool]\
 

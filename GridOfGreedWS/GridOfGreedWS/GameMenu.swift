@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct GameMenu: View {
+    
+    @StateObject var websocketmanager = WebSocketManager(gridSize: 500)
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -20,6 +23,10 @@ struct GameMenu: View {
                         .foregroundColor(.white)
                         .cornerRadius(8)
                 }
+//                .onTapGesture {
+//                    websocketmanager.sendMessage(message: "startgame")
+//                }
+                
                 .padding(.horizontal)
                 
                 HStack{
