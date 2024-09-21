@@ -18,19 +18,19 @@ class WebSocketManager: ObservableObject {
     
     init(gridSize: Int) {
         self.grid = Array(repeating: true, count: gridSize)
-        self.receivedGridData =  Array(repeating: false, count: 500)
-        connect() //eveytime it run itself
+        
+        //connect on initialization
+        connect()
         receiveMessage()
-        // [false, false, false, false, false]
     }
     
     //MARK: Established a connection to Websocket Server.
     func connect() {
-        // Create an url object
         guard let url = URL(string: "ws://localhost:6666/ws") else {
            print("Invalid WebSocket URL")
-            return
+           return
         }
+        
         // Ensure URLSessionWebSocketTask is not nil before calling resume()
         websocketTask = URLSession.shared.webSocketTask(with: url)
         websocketTask?.resume()
@@ -46,9 +46,8 @@ class WebSocketManager: ObservableObject {
                 
             case .failure(let error):
                 print("Error when receiving messages :\(error.localizedDescription)")
+                
             case .success(let message):
-                print("Received Message: \(message)")
-
                 switch message {
                 case .string(let text):
                     print("Received string message: \(text)")
@@ -61,12 +60,25 @@ class WebSocketManager: ObservableObject {
                     print("Unknown message type received")
                 }
                 
-                //Keep receiving datas
-                self?.receiveMessage() // recursive -> loops keep going
+                // Keep receiving messages recursively
+                self?.receiveMessage()
             }
-            //handle recieved message
-            
         }
+    }
+    
+    
+    // MARK: Handel string messages received from websocket
+    private func handleReceivedMessages(_ message: String) {
+        if let data = message.data(using: .utf8) {
+         decodeGridData(from: data)
+        } else {
+            print("Failed to convert message to Data")
+        }
+    }
+    
+    // Handle data messages received from WebSocket
+    private func handleReceivedData(_ data: Data) {
+        decodeGridData(from: data)
     }
     
     // Send message to WebSocket server
@@ -80,6 +92,29 @@ class WebSocketManager: ObservableObject {
             }
         }
     }
+    
+    // Decode the received data and update the grid
+    private func decodeGridData(from data: Data) {
+        do {
+            var decodeGrid = try JSONDecoder().decode([Bool].self, from: data)
+            
+            //Ensure if 500 elements
+            if decodeGrid.count < 500 {
+                decodeGrid.append(contentsOf: Array(repeating: false, count: 500 - decodeGrid.count))
+            } else if decodeGrid.count > 500 {
+                decodeGrid = Array(decodeGrid.prefix(500))
+            }
+            
+            // Update the state with the 500-element array
+            DispatchQueue.main.async {
+                self.receivedGridData = decodeGrid
+            }
+            
+        } catch {
+            print("Decoding error: \(error)")
+        }
+    }
+    
     
     func disconnect() {
         websocketTask?.cancel(with: .goingAway, reason: nil)
