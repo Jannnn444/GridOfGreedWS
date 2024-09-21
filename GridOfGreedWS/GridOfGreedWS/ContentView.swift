@@ -29,6 +29,7 @@ struct ContentView: View {
                     }
                     Spacer()
                     LazyVGrid(columns: squares, spacing: 0) { // Remove spacing between columns
+                       
                         // Loop through 25 items (5x5 grid)
                         ForEach(0..<500, id: \.self) { index in
                             Rectangle()
@@ -38,7 +39,6 @@ struct ContentView: View {
                                 .onTapGesture {
                                     isFilled[index].toggle()
                                     websocketManager.sendMessage(message: "startgame")
-                                    websocketManager.receiveMessage()
                                 }
                                 .frame(width: 50, height: 50)
                         }
@@ -52,21 +52,11 @@ struct ContentView: View {
                     .foregroundStyle(Color.blue)
                     .opacity(0.5)
                 
-                
-                //        .padding(30)
-                
-                
-                //        Text("Greedy folks...")
-                //            .bold()
-                //            .fontDesign(.serif)
-                //            .foregroundStyle(Color.cyan)
-                //            .opacity(0.5)
-                //        .navigationSplitViewStyle(.balanced)
-                //        .navigationViewStyle(StackNavigationViewStyle())
-                //
-                //     ColorPicker("", selection: $colorChoice)
-                //            .labelsHidden()
-                //
+            }
+            .onReceive(websocketManager.$receivedGridData) { newGridData in
+                if newGridData.count == isFilled.count {
+                    isFilled = newGridData // Update the grid with the new data
+                }
             }
         }
     }
