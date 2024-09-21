@@ -49,8 +49,39 @@ class WebSocketManager: ObservableObject {
                 
             case .success(let message):
                 switch message {
+                    
                 case .string(let text):
-                    print("Received string message: \(text)")
+                    print("Received STRING message: \(text)")
+                    
+                    // MARK: Parse the received string into an array of Bools
+                    if var boolArray = self?.parseBoolArray(from: text) {
+                        
+                        if boolArray.count == 500 {
+                            // Array has exactly 500 elements
+                            print("Valid array of 500 Booleans received!")
+                        } else if boolArray.count < 500 {
+                            // Array has fewer than 500 elements, so append `false` values
+                            print("boolArray.count doesn't have 500 elements, so let's fix it.")
+                            boolArray.append(contentsOf: Array(repeating: false, count: 500 - boolArray.count))
+                            // Convert back to a string
+                            let boolString = "[" + boolArray.map { String($0) }.joined(separator: ",") + "]"
+                            print("Converted back to string (padded with false): \(boolString)")
+                        } else if boolArray.count > 500 {
+                            // Array has more than 500 elements, so truncate it
+                            print("boolArray.count is greater than 500, truncating.")
+                            boolArray = Array(boolArray.prefix(500))
+                            // Convert back to a string
+                            let boolString = "[" + boolArray.map { String($0) }.joined(separator: ",") + "]"
+                            print("Converted back to string (truncated): \(boolString)")
+                        }
+                        
+                    } else {
+                        print("Failed to parse string into [Bool].")
+                    }
+                    
+                    print("Received STRING : \(text)")
+                    
+                 
                 case .data(let data):
                     // Explicitly capture self here
                     print("My data for debug: \(data)")
@@ -64,6 +95,28 @@ class WebSocketManager: ObservableObject {
                 self?.receiveMessage()
             }
         }
+    }
+    
+    // MARK: Helper for Parsing the String into [Bool]
+    func parseBoolArray(from text: String) -> [Bool]? {
+        let cleanText = text.trimmingCharacters(in: CharacterSet(charactersIn: "[]")) //Remove brackets
+        let components = cleanText.split(separator: ",").map { $0.trimmingCharacters(in: .whitespaces) }
+        
+        let boolArray = components.compactMap { component -> Bool? in
+            
+            if component == "true" {
+                return true
+            } else if component == "false" {
+                return false
+            } else {
+                return nil
+            }
+              
+            
+            
+        }
+    // Return nil if any element couldn't be parsed
+        return boolArray.count == components.count ? boolArray : nil
     }
     
     

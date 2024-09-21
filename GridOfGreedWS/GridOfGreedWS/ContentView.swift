@@ -13,8 +13,7 @@ struct ContentView: View {
     @State private var colorChoice = Color.yellow  // here should receive changes from homepage!!!
     
     // Create a 2D array to track which squares are filled
-    
-    @State private var isFilled: [Bool] = Array(repeating: false, count: 500)
+//    @State private var isFilled: [Bool] = Array(repeating: false, count: 500)
 //    @State private var isFilled: [Bool] = websocketManager.receivedGridData
     
         
@@ -36,11 +35,21 @@ struct ContentView: View {
                         // Loop through 25 items (5x5 grid)
                         ForEach(0..<500, id: \.self) { index in
                             Rectangle()
-                                .fill(isFilled[index] ? colorChoice : Color.white)
+                                .fill(websocketManager.receivedGridData[index] ? colorChoice : Color.white)
                                 .border(Color.secondary)
                                 .cornerRadius(5)
                                 .onTapGesture {
-                                    isFilled[index].toggle()
+                                    // Create a temporary arrray to modify and assign back
+                                    var updateGrid = websocketManager.receivedGridData
+                                    updateGrid[index].toggle()
+                                    // Above: Toggle the value at the index
+                                    
+                                    // Here assign the updated grid back to trigger the UI update
+                                    websocketManager.receivedGridData = updateGrid
+                                    
+                                    // Toggle grid Boolean by tapping
+                                    websocketManager.receivedGridData[index].toggle()
+                                    
                                 }
                                 .frame(width: 50, height: 50)
                         }
@@ -55,18 +64,15 @@ struct ContentView: View {
                     .opacity(0.5)
                 
             }
-            .onReceive(websocketManager.$receivedGridData) { newGridData in
-                if newGridData.count == isFilled.count {
-                    isFilled = newGridData // Update the grid with the new data
-                }
-            }
-        }.onAppear(perform: {
+
+        }
+        .onAppear(perform: {
             websocketManager.sendMessage(message: "startgame")
         })
     }
         
 }
-// 20240921 TODO: why UI didnt triggerd repaint when receiving the [Bool]\
+// [V] 20240921 TODO: why UI didnt triggerd repaint when receiving the [Bool]
 
 
 #Preview {
