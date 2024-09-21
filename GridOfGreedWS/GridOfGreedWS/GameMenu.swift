@@ -23,9 +23,6 @@ struct GameMenu: View {
                         .foregroundColor(.white)
                         .cornerRadius(8)
                 }
-//                .onTapGesture {
-//                    websocketmanager.sendMessage(message: "startgame")
-//                }
                 
                 .padding(.horizontal)
                 

@@ -41,7 +41,6 @@ struct ContentView: View {
                                 .cornerRadius(5)
                                 .onTapGesture {
                                     isFilled[index].toggle()
-//                                    websocketManager.sendMessage(message: "startgame")
                                 }
                                 .frame(width: 50, height: 50)
                         }

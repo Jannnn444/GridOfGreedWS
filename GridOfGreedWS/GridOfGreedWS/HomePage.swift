@@ -23,12 +23,12 @@ struct HomePage: View {
                             .colorMultiply(.secondary)
                             .font(.title)
                             .padding()
-                        //                            .background(Color.white.shadow(radius: 2)) // Optional: Background and shadow for better visibility
+                        //  .background(Color.white.shadow(radius: 2)) // Optional: Background and shadow for better visibility
                         
                     }
                     
                     // Page bar
-                    //                ScrollView {
+                    // ScrollView {
                     VStack {
                         switch tabState {
                         case .world:
