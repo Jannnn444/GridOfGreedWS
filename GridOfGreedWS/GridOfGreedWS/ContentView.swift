@@ -61,7 +61,7 @@ struct ContentView: View {
         }
     }
 }
-
+// 20240921 TODO: why UI didnt triggerd repaint when receiving the [Bool]
 #Preview {
     ContentView()
 }
