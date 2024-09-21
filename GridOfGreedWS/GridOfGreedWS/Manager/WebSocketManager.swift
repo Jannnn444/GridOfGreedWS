@@ -18,6 +18,7 @@ class WebSocketManager: ObservableObject {
     
     init(gridSize: Int) {
         self.grid = Array(repeating: true, count: gridSize)
+        self.receivedGridData =  Array(repeating: false, count: 500)
         connect() //eveytime it run itself
         receiveMessage()
         // [false, false, false, false, false]

@@ -10,8 +10,11 @@ import SwiftUI
 @main
 struct GridOfGreedWSApp: App {
     var body: some Scene {
+        
+        // TODO: Change Page by state
+        
         WindowGroup {
-            ContentView()
+            GameMenu()
         }
     }
 }

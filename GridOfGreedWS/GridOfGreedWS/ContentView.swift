@@ -9,12 +9,15 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @StateObject var websocketManager = WebSocketManager(gridSize: 20)
+    @StateObject var websocketManager = WebSocketManager(gridSize: 500)
     @State private var colorChoice = Color.yellow  // here should receive changes from homepage!!!
     
     // Create a 2D array to track which squares are filled
-    @State private var isFilled: [Bool] = Array(repeating: false, count: 500)
     
+    @State private var isFilled: [Bool] = Array(repeating: false, count: 500)
+//    @State private var isFilled: [Bool] = websocketManager.receivedGridData
+    
+        
     // Define a grid with 5 squares / 20 squares in one row
     let squares = Array(repeating: GridItem(.fixed(50), spacing: 0), count: 20)
     
@@ -61,7 +64,9 @@ struct ContentView: View {
         }
     }
 }
-// 20240921 TODO: why UI didnt triggerd repaint when receiving the [Bool]
+// 20240921 TODO: why UI didnt triggerd repaint when receiving the [Bool]\
+
+
 #Preview {
     ContentView()
 }

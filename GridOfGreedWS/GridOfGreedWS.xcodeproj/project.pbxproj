@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		541B82A92C9F1E4800466BA3 /* GameMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541B82A82C9F1E4800466BA3 /* GameMenu.swift */; };
 		5422326E2C8DC35A006EA678 /* GridOfGreedWSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5422326D2C8DC35A006EA678 /* GridOfGreedWSApp.swift */; };
 		542232702C8DC35A006EA678 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5422326F2C8DC35A006EA678 /* ContentView.swift */; };
 		542232722C8DC35B006EA678 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 542232712C8DC35B006EA678 /* Assets.xcassets */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		541B82A82C9F1E4800466BA3 /* GameMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameMenu.swift; sourceTree = "<group>"; };
 		5422326A2C8DC35A006EA678 /* GridOfGreedWS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GridOfGreedWS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5422326D2C8DC35A006EA678 /* GridOfGreedWSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridOfGreedWSApp.swift; sourceTree = "<group>"; };
 		5422326F2C8DC35A006EA678 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 				542232712C8DC35B006EA678 /* Assets.xcassets */,
 				542232732C8DC35B006EA678 /* Preview Content */,
 				54C9056A2C907557001920C2 /* HomePage.swift */,
+				541B82A82C9F1E4800466BA3 /* GameMenu.swift */,
 			);
 			path = GridOfGreedWS;
 			sourceTree = "<group>";
@@ -165,6 +168,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				541B82A92C9F1E4800466BA3 /* GameMenu.swift in Sources */,
 				542232702C8DC35A006EA678 /* ContentView.swift in Sources */,
 				54C9056B2C907557001920C2 /* HomePage.swift in Sources */,
 				5422326E2C8DC35A006EA678 /* GridOfGreedWSApp.swift in Sources */,
