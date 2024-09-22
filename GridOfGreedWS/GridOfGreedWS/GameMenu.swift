@@ -12,6 +12,9 @@ struct GameMenu: View {
     @StateObject var websocketmanager = WebSocketManager(gridSize: 500)
     
     var body: some View {
+        
+        // Maybe not use navigation destination, but use State to let it change page automatically
+        
         NavigationStack {
             VStack {
                 Text("Hello Folk")
