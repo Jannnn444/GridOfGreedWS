@@ -12,10 +12,8 @@ struct ContentView: View {
     @StateObject var websocketManager = WebSocketManager(gridSize: 500)
     @State private var colorChoice = Color.yellow  // here should receive changes from homepage!!!
     
-    // Create a 2D array to track which squares are filled
-//    @State private var isFilled: [Bool] = Array(repeating: false, count: 500)
-//    @State private var isFilled: [Bool] = websocketManager.receivedGridData
-    
+//    Create a 2D array to track which squares are filled
+    @State private var isFilled: [Bool] = Array(repeating: false, count: 500)
         
     // Define a grid with 5 squares / 20 squares in one row
     let squares = Array(repeating: GridItem(.fixed(50), spacing: 0), count: 20)
@@ -35,27 +33,33 @@ struct ContentView: View {
                         // Loop through 25 items (5x5 grid)
                         ForEach(0..<500, id: \.self) { index in
                             Rectangle()
-                                .fill(websocketManager.receivedGridData[index] ? colorChoice : Color.white)
+                                .fill(isFilled[index] ? colorChoice : Color.white)
                                 .border(Color.secondary)
                                 .cornerRadius(5)
+//                                .onTapGesture {
+//                                    // Create a temporary arrray to modify and assign back
+//                                    var updateGrid = websocketManager.receivedGridData
+//                                    updateGrid[index].toggle()
+//                                    // Above: Toggle the value at the index
+//                                    
+//                                    // Here assign the updated grid back to trigger the UI update
+//                                    websocketManager.receivedGridData = updateGrid
+//                                    
+//                                    // Toggle grid Boolean by tapping
+//                                    websocketManager.receivedGridData[index].toggle()
+//                                    
+//                                }
+//                                .frame(width: 50, height: 50)
+                            
                                 .onTapGesture {
-                                    // Create a temporary arrray to modify and assign back
-                                    var updateGrid = websocketManager.receivedGridData
-                                    updateGrid[index].toggle()
-                                    // Above: Toggle the value at the index
-                                    
-                                    // Here assign the updated grid back to trigger the UI update
-                                    websocketManager.receivedGridData = updateGrid
-                                    
-                                    // Toggle grid Boolean by tapping
-                                    websocketManager.receivedGridData[index].toggle()
-                                    
+                                    isFilled[index].toggle()
+                                    websocketManager.receiveMessage()
                                 }
                                 .frame(width: 50, height: 50)
                         }
                     }
                 } 
-                Text("This is the edge of this greedy grid...")
+                Text("This is the edge of this greedy grid ")
                     .bold()
                     .shadow(radius: 10)
                     .font(.largeTitle)
