@@ -12,9 +12,8 @@ struct ContentView: View {
     @StateObject var websocketManager = WebSocketManager(gridSize: 500)
     @State private var colorChoice = Color.yellow  // here should receive changes from homepage!!!
     
-    
 //    Create a 2D array to track which squares are filled
-    @State private var isFilled: [Bool] = Array(repeating: false, count: 500)
+//    @State private var isFilled: [Bool] = Array(repeating: false, count: 500)
         
     // Define a grid with 5 squares / 20 squares in one row
     let squares = Array(repeating: GridItem(.fixed(50), spacing: 0), count: 20)
@@ -39,13 +38,15 @@ struct ContentView: View {
                                 .cornerRadius(5)
                                 .frame(width: 50, height: 50)
                                 .onTapGesture {
-                                    // MARK: Toggle the grid value at the tapped index
                                     websocketManager.receivedGridData[index].toggle()
-                                    websocketManager.sendMessage(message: "Hey new square toggled at index\(index)")
-                                    websocketManager.updateGrid(with: websocketManager.receivedGridData)
-                                    websocketManager.updateGrid(with: websocketManager.grid)
+                                    websocketManager.sendMessage(message: "New square toggled at index \(index)")
                                     
+                                    
+                                    // Update the grid only once, based on `receivedGridData`
+                                    websocketManager.updateGrid(with: websocketManager.receivedGridData)
+                                    print("Can I see the total [Bool] now? -> \(websocketManager.receivedGridData)")
                                 }
+                            
 //                                .frame(width: 50, height: 50)
 //                                .onTapGesture {
 //                                    isFilled[index].toggle()
@@ -67,7 +68,6 @@ struct ContentView: View {
         .onAppear(perform: {
             websocketManager.sendMessage(message: "startgame")
             websocketManager.updateGrid(with: websocketManager.receivedGridData)
-            websocketManager.updateGrid(with: websocketManager.grid)
         })
     }
         
