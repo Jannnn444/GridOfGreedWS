@@ -12,6 +12,7 @@ struct ContentView: View {
     @StateObject var websocketManager = WebSocketManager(gridSize: 500)
     @State private var colorChoice = Color.yellow  // here should receive changes from homepage!!!
     
+    
 //    Create a 2D array to track which squares are filled
     @State private var isFilled: [Bool] = Array(repeating: false, count: 500)
         
@@ -33,29 +34,24 @@ struct ContentView: View {
                         // Loop through 25 items (5x5 grid)
                         ForEach(0..<500, id: \.self) { index in
                             Rectangle()
-                                .fill(isFilled[index] ? colorChoice : Color.white)
+                                .fill(websocketManager.receivedGridData[index] ? colorChoice : Color.white)
                                 .border(Color.secondary)
                                 .cornerRadius(5)
+                                .frame(width: 50, height: 50)
+                                .onTapGesture {
+                                    // MARK: Toggle the grid value at the tapped index
+                                    websocketManager.receivedGridData[index].toggle()
+                                    websocketManager.sendMessage(message: "Hey new square toggled at index\(index)")
+                                    websocketManager.updateGrid(with: websocketManager.receivedGridData)
+                                    websocketManager.updateGrid(with: websocketManager.grid)
+                                    
+                                }
+//                                .frame(width: 50, height: 50)
 //                                .onTapGesture {
-//                                    // Create a temporary arrray to modify and assign back
-//                                    var updateGrid = websocketManager.receivedGridData
-//                                    updateGrid[index].toggle()
-//                                    // Above: Toggle the value at the index
-//                                    
-//                                    // Here assign the updated grid back to trigger the UI update
-//                                    websocketManager.receivedGridData = updateGrid
-//                                    
-//                                    // Toggle grid Boolean by tapping
-//                                    websocketManager.receivedGridData[index].toggle()
-//                                    
+//                                    isFilled[index].toggle()
+//                                    websocketManager.receiveMessage()
 //                                }
 //                                .frame(width: 50, height: 50)
-                            
-                                .onTapGesture {
-                                    isFilled[index].toggle()
-                                    websocketManager.receiveMessage()
-                                }
-                                .frame(width: 50, height: 50)
                         }
                     }
                 } 
@@ -66,18 +62,16 @@ struct ContentView: View {
                     .fontDesign(.serif)
                     .foregroundStyle(Color.blue)
                     .opacity(0.5)
-                
             }
-
         }
         .onAppear(perform: {
             websocketManager.sendMessage(message: "startgame")
+            websocketManager.updateGrid(with: websocketManager.receivedGridData)
+            websocketManager.updateGrid(with: websocketManager.grid)
         })
     }
         
 }
-// [V] 20240921 TODO: why UI didnt triggerd repaint when receiving the [Bool]
-
 
 #Preview {
     ContentView()
