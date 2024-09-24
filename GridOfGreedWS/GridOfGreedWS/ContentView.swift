@@ -13,7 +13,6 @@ struct ContentView: View {
     @State private var colorChoice = Color.yellow  // here should receive changes from homepage!!!
     
 //    Create a 2D array to track which squares are filled
-//    @State private var isFilled: [Bool] = Array(repeating: false, count: 500)
         
     // Define a grid with 5 squares / 20 squares in one row
     let squares = Array(repeating: GridItem(.fixed(50), spacing: 0), count: 20)
@@ -46,13 +45,6 @@ struct ContentView: View {
                                     websocketManager.updateGrid(with: websocketManager.receivedGridData)
                                     print("Can I see the total [Bool] now? -> \(websocketManager.receivedGridData)")
                                 }
-                            
-//                                .frame(width: 50, height: 50)
-//                                .onTapGesture {
-//                                    isFilled[index].toggle()
-//                                    websocketManager.receiveMessage()
-//                                }
-//                                .frame(width: 50, height: 50)
                         }
                     }
                 } 
