@@ -28,7 +28,7 @@ class WebSocketManager: ObservableObject {
         }
         websocketTask = URLSession.shared.webSocketTask(with: url)
         websocketTask?.resume()
-        receiveMessage()  // Start receiving messages
+        receiveMessage()
     }
     
     //MARK: Receive messages from WebSocket
@@ -41,19 +41,19 @@ class WebSocketManager: ObservableObject {
             case .success(let message):
                 switch message {
                 case .string(let text):
-                    print("Received STRING message: \(text)")
+                    print("Received String message: \(text)")
                     self?.handleReceivedMessages(text)
                     
                 case .data(let data):
-                    print("Received BINARY message")
+                    print("Received Binarry message")
                     self?.handleReceivedData(data)
                     
                 @unknown default:
                     print("Unknown message type received")
                 }
             }
-            // Keep receiving messages recursively
-            self?.receiveMessage()
+            
+            self?.receiveMessage() // Keep receiving recursive messages
         }
     }
     
@@ -62,13 +62,15 @@ class WebSocketManager: ObservableObject {
         if let boolArray = parseBoolArray(from: message) {
             updateGrid(with: boolArray)
         } else {
-            print("Failed to parse string into [Bool].")
+//          print("Failed to parse string into [Bool]. Message handling: \(message)")
+            print("Information: Can't parse this String to [Bool]. Message handling: \(message)")
         }
     }
     
     //MARK: Handle binary data received from WebSocket
     private func handleReceivedData(_ data: Data) {
         decodeGridData(from: data)
+        print("We handling data: \(data)")
     }
     
     //MARK: Update the grid and receivedGridData
@@ -134,4 +136,6 @@ class WebSocketManager: ObservableObject {
     }
 }
 
-//chmod +x ./ws-server
+//sudo ./game-server  (this fisrt)
+//chmod =x game-server (permission)
+
