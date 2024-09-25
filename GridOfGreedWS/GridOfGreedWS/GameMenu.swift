@@ -19,7 +19,7 @@ struct GameMenu: View {
             VStack {
                 Text("Hello Folk")
                 
-                NavigationLink(destination: HomePage()) {
+                NavigationLink(destination: SideBar()) {
                     Text("Press For Play")
                         .padding()
                         .background(Color.blue)

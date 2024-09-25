@@ -13,8 +13,8 @@ struct ContentView: View {
     @State private var colorChoice = Color.yellow  // here should receive changes from homepage!!!
     
 //    Create a 2D array to track which squares are filled
-        
-    // Define a grid with 5 squares / 20 squares in one row
+
+//    Define a grid with 5 squares / 20 squares in one row
     let squares = Array(repeating: GridItem(.fixed(50), spacing: 0), count: 20)
     
     var body: some View {
@@ -62,12 +62,17 @@ struct ContentView: View {
             websocketManager.updateGrid(with: websocketManager.receivedGridData)
         })
     }
-        
 }
 
 #Preview {
     ContentView()
 }
+
+
+
+
+
+
 
 
 
