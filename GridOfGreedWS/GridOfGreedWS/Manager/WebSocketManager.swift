@@ -136,6 +136,6 @@ class WebSocketManager: ObservableObject {
     }
 }
 
-//sudo ./game-server  (this fisrt)
-//chmod =x game-server (permission)
+//chmod +x game-server      (1)
+//sudo: ./game-server:      (2)
 
