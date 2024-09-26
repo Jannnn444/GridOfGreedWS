@@ -7,13 +7,16 @@
 
 import Foundation
 
-struct SendGridUpdatePost: Decodable {
+// generic
+
+struct SendGridUpdatePost<T:Codable>: Codable {
     let type: State
-    let value: String
+    let value: T
     
-    enum State: String, Decodable {
+    enum State: String, Codable {
         case START_GAME
         case ACTIVATE_GRID
+        case RANDOM
     }
 }
 

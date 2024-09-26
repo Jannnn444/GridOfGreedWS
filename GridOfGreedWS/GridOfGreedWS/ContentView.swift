@@ -9,7 +9,8 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @StateObject var websocketManager = WebSocketManager(gridSize: 500)
+    @StateObject var websocketManager = WebSocketManager()
+    
     @State private var colorChoice = Color.yellow  // here should receive changes from homepage!!!
     
 //    Create a 2D array to track which squares are filled
@@ -29,21 +30,15 @@ struct ContentView: View {
                     Spacer()
                     LazyVGrid(columns: squares, spacing: 0) { // Remove spacing between columns
                        
-                        // Loop through 25 items (5x5 grid)
+                        // Loop through 500 items (20x25 grid)
                         ForEach(0..<500, id: \.self) { index in
                             Rectangle()
-                                .fill(websocketManager.receivedGridData[index] ? colorChoice : Color.white)
+                                .fill( Color.white)
                                 .border(Color.secondary)
                                 .cornerRadius(5)
                                 .frame(width: 50, height: 50)
                                 .onTapGesture {
-                                    websocketManager.receivedGridData[index].toggle()
-                                    websocketManager.sendMessage(message: "New square toggled at index \(index)")
-                                    
-                                    
-                                    // Update the grid only once, based on `receivedGridData`
-                                    websocketManager.updateGrid(with: websocketManager.receivedGridData)
-                                    print("Can I see the total [Bool] now? -> \(websocketManager.receivedGridData)")
+                                    websocketManager.sendMessage(message: SendGridUpdatePost(type: .ACTIVATE_GRID, value: index))
                                 }
                         }
                     }
@@ -58,8 +53,7 @@ struct ContentView: View {
             }
         }
         .onAppear(perform: {
-            websocketManager.sendMessage(message: "startgame")
-            websocketManager.updateGrid(with: websocketManager.receivedGridData)
+            websocketManager.sendMessage(message: SendGridUpdatePost(type: .START_GAME, value: ""))
         })
     }
 }

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct GameMenu: View {
     
-    @StateObject var websocketmanager = WebSocketManager(gridSize: 500)
+    @StateObject var websocketmanager = WebSocketManager()
     
     var body: some View {
         
