@@ -63,50 +63,13 @@ class WebSocketManager: ObservableObject {
     
     //MARK: Handle binary data received from WebSocket
     private func handleReceivedData(_ data: Data) {
-        decodeGridData(from: data)
-        print("We handling data: \(data)")
+        print("FINAL DATA FROM SERVER: \(data)")
     }
     
     //MARK: Update the grid and receivedGridData
-    func updateGrid(with boolArray: [Bool]) {
-        let updatedArray = ensure500Elements(in: boolArray)
+    func updateGrid(with element: String) {
         DispatchQueue.main.async {
-            self.receivedGridData = updatedArray
-        }
-    }
-    
-    // MARK: Ensure 500 elements in the array
-    private func ensure500Elements(in array: [Bool]) -> [Bool] {
-        if array.count < 500 {
-            return array + Array(repeating: false, count: 500 - array.count)
-        } else if array.count > 500 {
-            return Array(array.prefix(500))
-        }
-        return array
-    }
-    
-    // MARK: Parse a string into a [Bool] array
-    func parseBoolArray(from text: String) -> [Bool]? {
-        let cleanText = text.trimmingCharacters(in: CharacterSet(charactersIn: "{[]}"))  // Remove brackets
-        let components = cleanText.split(separator: ",").map { $0.trimmingCharacters(in: .whitespaces) }
-        
-        let boolArray = components.compactMap { component -> Bool? in
-            switch component {
-            case "true": return true
-            case "false": return false
-            default: return nil
-            }
-        }
-        return boolArray.count == components.count ? boolArray : nil
-    }
-    
-    // MARK: Decode JSON data into [Bool] and update the grid
-    private func decodeGridData(from data: Data) {
-        do {
-            let decodedGrid = try JSONDecoder().decode([Bool].self, from: data)
-            updateGrid(with: decodedGrid)
-        } catch {
-            print("Decoding error: \(error)")
+//            self.grid
         }
     }
     
@@ -115,7 +78,7 @@ class WebSocketManager: ObservableObject {
     func sendMessage<T>(message: SendGridUpdatePost<T>) {
         
         let encodedMessage = encodeJSON(message: message)
-        guard let encodedMessage = encodedMessage  else { return }  // if it nil, return
+        guard let encodedMessage = encodedMessage  else { return }  // guard it nil, return
         
         let message = URLSessionWebSocketTask.Message.data(encodedMessage)
         
@@ -140,6 +103,10 @@ class WebSocketManager: ObservableObject {
             print("Encode Json error : \(error.localizedDescription)")
             return nil //optional
         }
+    }
+    
+    func decodeJSON<T>(message: T) -> String {
+        return ""
     }
     
     // Disconnect WebSocket
