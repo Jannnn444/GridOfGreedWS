@@ -33,12 +33,14 @@ struct ContentView: View {
                         // Loop through 500 items (20x25 grid)
                         ForEach(0..<500, id: \.self) { index in
                             Rectangle()
-                                .fill( Color.white)
+                                .fill(websocketManager.grid[index] ? colorChoice : Color.white) // Safe access to grid state
                                 .border(Color.secondary)
                                 .cornerRadius(5)
                                 .frame(width: 50, height: 50)
                                 .onTapGesture {
+                                    // Send the grid index to the WebSocket server when tapped
                                     websocketManager.sendMessage(message: SendGridUpdatePost(type: .ACTIVATE_GRID, value: index))
+                                    
                                 }
                         }
                     }
@@ -52,9 +54,10 @@ struct ContentView: View {
                     .opacity(0.5)
             }
         }
-        .onAppear(perform: {
+        .onAppear {
+            // Send a message to start the game when the view appears
             websocketManager.sendMessage(message: SendGridUpdatePost(type: .START_GAME, value: ""))
-        })
+        }
     }
 }
 

@@ -1,13 +1,11 @@
 //
-//  Config.swift
+//  WebsocketSendRequest.swift
 //  GridOfGreedWS
 //
-//  Created by yucian huang on 2024/9/25.
+//  Created by yucian huang on 2024/9/30.
 //
 
 import Foundation
-
-// generic
 
 struct SendGridUpdatePost<T:Codable>: Codable {
     let type: State
