@@ -23,7 +23,7 @@ struct ContentView: View {
         ScrollView([.horizontal, .vertical]) {
             VStack{
                 VStack {
-                    HStack {
+                    HStack(alignment: .top) {
                         ColorPicker("", selection: $colorChoice)
                             .labelsHidden()
                     }
@@ -31,20 +31,22 @@ struct ContentView: View {
                     LazyVGrid(columns: squares, spacing: 0) { // Remove spacing between columns
                        
                         // Loop through 500 items (20x25 grid)
-                        ForEach(0..<500, id: \.self) { index in
+                        ForEach(0..<10, id: \.self) { index in
+                          
                             Rectangle()
-                                .fill(websocketManager.grid[index] ? colorChoice : Color.white) // Safe access to grid state
+                                .fill((websocketManager.grid?[index] ?? false) ? colorChoice : Color.white)
                                 .border(Color.secondary)
                                 .cornerRadius(5)
                                 .frame(width: 50, height: 50)
                                 .onTapGesture {
                                     // Send the grid index to the WebSocket server when tapped
                                     websocketManager.sendMessage(message: SendGridUpdatePost(type: .ACTIVATE_GRID, value: index))
-                                    
-                                }
+                                
+                            }
                         }
                     }
                 } 
+                
                 Text("This is the edge of this greedy grid ")
                     .bold()
                     .shadow(radius: 10)
@@ -57,6 +59,10 @@ struct ContentView: View {
         .onAppear {
             // Send a message to start the game when the view appears
             websocketManager.sendMessage(message: SendGridUpdatePost(type: .START_GAME, value: ""))
+          
+        }
+        .onDisappear {
+            websocketManager.disconnect()
         }
     }
 }

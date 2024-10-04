@@ -12,13 +12,13 @@ class WebSocketManager: ObservableObject {
     private var websocketTask: URLSessionWebSocketTask?
     
     // Represents the grid state
-//    @Published var grid: [Bool]?
-    @Published var grid: [Bool] = Array(repeating: false, count: 500)
+    @Published var grid: [Bool]?
+//    @Published var grid: [Bool] = Array(repeating: false, count: 500)
  
     init() {
         self.connect()
     }
-    
+
     // MARK: Connect to WebSocket server
     func connect() {
         guard let url = URL(string: "ws://localhost:6666/ws") else {
@@ -36,6 +36,8 @@ class WebSocketManager: ObservableObject {
             DispatchQueue.main.async {
                 // Ensure the array has exactly 500 elements to prevent index out-of-range errors
                 if boolArray.count == 500 {
+                    self.grid = boolArray
+                } else if boolArray.count < 500 {
                     self.grid = boolArray
                 } else {
                     print("Received grid data of incorrect size.")
@@ -153,8 +155,6 @@ class WebSocketManager: ObservableObject {
         print("Disconnected from WebSocket server")
     }
 }
-
-
 
 
 //chmod +x game-server      (1)
