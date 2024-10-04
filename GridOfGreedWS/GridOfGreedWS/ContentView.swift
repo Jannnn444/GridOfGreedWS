@@ -31,7 +31,7 @@ struct ContentView: View {
                     LazyVGrid(columns: squares, spacing: 0) { // Remove spacing between columns
                        
                         // Loop through 500 items (20x25 grid)
-                        ForEach(0..<10, id: \.self) { index in
+                        ForEach(0..<(websocketManager.grid?.count ?? 10), id: \.self) { index in
                           
                             Rectangle()
                                 .fill((websocketManager.grid?[index] ?? false) ? colorChoice : Color.white)
