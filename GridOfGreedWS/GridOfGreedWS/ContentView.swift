@@ -26,7 +26,7 @@ struct ContentView: View {
                     }
                     Spacer()
                     
-                    //    Define a grid with 5 squares / 20 squares in one row
+                    // Define a grid with 5 squares / 20 squares in one row
                     let squares = Array(repeating: GridItem(.fixed(50), spacing: 0), count: (websocketManager.grid?.count ?? 10) / 3)
                     
                     LazyVGrid(columns: squares, spacing: 0) { // Remove spacing between columns
