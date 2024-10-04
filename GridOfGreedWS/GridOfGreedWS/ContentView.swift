@@ -11,13 +11,10 @@ struct ContentView: View {
     
     @StateObject var websocketManager = WebSocketManager()
     
-    @State private var colorChoice = Color.yellow  // here should receive changes from homepage!!!
+    @State private var colorChoice = Color.dracula  // here should receive changes from homepage!!!
     
 //    Create a 2D array to track which squares are filled
 
-//    Define a grid with 5 squares / 20 squares in one row
-    let squares = Array(repeating: GridItem(.fixed(50), spacing: 0), count: 20)
-    
     var body: some View {
   
         ScrollView([.horizontal, .vertical]) {
@@ -28,6 +25,10 @@ struct ContentView: View {
                             .labelsHidden()
                     }
                     Spacer()
+                    
+                    //    Define a grid with 5 squares / 20 squares in one row
+                    let squares = Array(repeating: GridItem(.fixed(50), spacing: 0), count: (websocketManager.grid?.count ?? 10) / 3)
+                    
                     LazyVGrid(columns: squares, spacing: 0) { // Remove spacing between columns
                        
                         // Loop through 500 items (20x25 grid)
@@ -46,14 +47,15 @@ struct ContentView: View {
                         }
                     }
                 } 
-                
-                Text("This is the edge of this greedy grid ")
-                    .bold()
-                    .shadow(radius: 10)
-                    .font(.largeTitle)
-                    .fontDesign(.serif)
-                    .foregroundStyle(Color.blue)
-                    .opacity(0.5)
+                Group{
+                    Text("This is the edge of this greedy grid ")
+                        .bold()
+                        .shadow(radius: 10)
+                        .font(.title)
+                        .fontDesign(.serif)
+                        .foregroundStyle(Color.blue)
+                        .opacity(0.5)
+                }.padding()
             }
         }
         .onAppear {
