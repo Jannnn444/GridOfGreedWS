@@ -52,7 +52,7 @@ struct TabView: View {
             } label: {
                 VStack {
                     Image(systemName: "bag")
-                    Text("Note")
+                    Text("Bag")
                         .font(.system(size: 10, weight: .regular, design: .serif))
                 }
             }.padding(.bottom, 10) .padding(.leading, -10)
@@ -63,7 +63,7 @@ struct TabView: View {
             } label: {
                 VStack {
                     Image(systemName: "cart")
-                    Text("Note")
+                    Text("Cart")
                         .font(.system(size: 10, weight: .regular, design: .serif))
                         .bold()
                 }
