@@ -10,8 +10,10 @@ import SwiftUI
 struct ContentView: View {
     
     @StateObject var websocketManager = WebSocketManager()
+    @Binding var colorChoice: Color  // Use @Binding to receive color choice
     
-    @State private var colorChoice = Color.dracula  // here should receive changes from homepage!!!
+    
+   /* @State private var colorChoice = Color.dracula*/  // here should receive changes from homepage!!!
     
 //    Create a 2D array to track which squares are filled
 
@@ -20,12 +22,7 @@ struct ContentView: View {
         ScrollView([.horizontal, .vertical]) {
             VStack{
                 VStack {
-                    HStack(alignment: .top) {
-                        ColorPicker("", selection: $colorChoice)
-                            .labelsHidden()
-                    }
-                    Spacer()
-                    
+
                     // Define a grid with 5 squares / 20 squares in one row
                     let squares = Array(repeating: GridItem(.fixed(50), spacing: 0), count: (websocketManager.grid?.count ?? 10) / 3)
                     
@@ -42,7 +39,6 @@ struct ContentView: View {
                                 .onTapGesture {
                                     // Send the grid index to the WebSocket server when tapped
                                     websocketManager.sendMessage(message: SendGridUpdatePost(type: .ACTIVATE_GRID, value: index))
-                                
                             }
                         }
                     }
@@ -67,10 +63,6 @@ struct ContentView: View {
             websocketManager.disconnect()
         }
     }
-}
-
-#Preview {
-    ContentView()
 }
 
 

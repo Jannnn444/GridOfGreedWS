@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SideBar: View {
     @State private var tabState: Tabs = .world
-    @State private var colorChoice = Color.yellow  // here should pass changes to ContentView!!!
+    @State private var colorChoice = Color.dracula  // here should pass changes to ContentView!!!
     
     var body: some View {
 //        Text("HOMEPAGE")
@@ -24,7 +24,6 @@ struct SideBar: View {
                             .font(.title)
                             .padding()
                         //  .background(Color.white.shadow(radius: 2)) // Optional: Background and shadow for better visibility
-                        
                     }
                     
                     // Page bar
@@ -32,9 +31,10 @@ struct SideBar: View {
                     VStack {
                         switch tabState {
                         case .world:
-                            ContentView()
+                            ContentView(colorChoice: $colorChoice)
                         case .paint:
-                            Text("Where u can pick up color")
+                            Text("Where u choose your color")
+                            PaintView(colorChoice: $colorChoice)
                         case .userNotes:
                             Text("Where u leave worldwide note, like, comment")
                         case .bag:
@@ -51,16 +51,16 @@ struct SideBar: View {
                 
             }
             .padding()
-        }  
-//        Text("Greedy folks...")
-//            .bold()
-//            .fontDesign(.serif)
-//            .foregroundStyle(Color.cyan)
-//            .opacity(0.5)
-        
+        }
     }
 }
 
 #Preview {
     SideBar()
 }
+
+
+
+
+
+

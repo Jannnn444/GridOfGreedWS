@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5409B8B22CAAB02300E00651 /* WebsocketResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5409B8B12CAAB02300E00651 /* WebsocketResponse.swift */; };
 		5409B8B42CAAB0A600E00651 /* WebsocketSendRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5409B8B32CAAB0A600E00651 /* WebsocketSendRequest.swift */; };
+		5409B92E2CB6913800E00651 /* PaintView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5409B92D2CB6913800E00651 /* PaintView.swift */; };
 		541B82A92C9F1E4800466BA3 /* GameMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541B82A82C9F1E4800466BA3 /* GameMenu.swift */; };
 		5422326E2C8DC35A006EA678 /* GridOfGreedWSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5422326D2C8DC35A006EA678 /* GridOfGreedWSApp.swift */; };
 		542232702C8DC35A006EA678 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5422326F2C8DC35A006EA678 /* ContentView.swift */; };
@@ -23,6 +24,7 @@
 /* Begin PBXFileReference section */
 		5409B8B12CAAB02300E00651 /* WebsocketResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebsocketResponse.swift; sourceTree = "<group>"; };
 		5409B8B32CAAB0A600E00651 /* WebsocketSendRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebsocketSendRequest.swift; sourceTree = "<group>"; };
+		5409B92D2CB6913800E00651 /* PaintView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaintView.swift; sourceTree = "<group>"; };
 		541B82A82C9F1E4800466BA3 /* GameMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameMenu.swift; sourceTree = "<group>"; };
 		5422326A2C8DC35A006EA678 /* GridOfGreedWS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GridOfGreedWS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5422326D2C8DC35A006EA678 /* GridOfGreedWSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridOfGreedWSApp.swift; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 				5422326F2C8DC35A006EA678 /* ContentView.swift */,
 				54C9056A2C907557001920C2 /* SideBar.swift */,
 				541B82A82C9F1E4800466BA3 /* GameMenu.swift */,
+				5409B92D2CB6913800E00651 /* PaintView.swift */,
 				54C905672C906274001920C2 /* Tab */,
 				54C905622C8F2302001920C2 /* Manager */,
 				542232712C8DC35B006EA678 /* Assets.xcassets */,
@@ -175,6 +178,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				541B82A92C9F1E4800466BA3 /* GameMenu.swift in Sources */,
+				5409B92E2CB6913800E00651 /* PaintView.swift in Sources */,
 				542232702C8DC35A006EA678 /* ContentView.swift in Sources */,
 				54C9056B2C907557001920C2 /* SideBar.swift in Sources */,
 				5409B8B22CAAB02300E00651 /* WebsocketResponse.swift in Sources */,
