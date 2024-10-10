@@ -67,12 +67,5 @@ struct ContentView: View {
 
 
 
-
-
-
-
-
-
-
 // TODO: WS save the color data?
 // NOTE: Now the server can succcesfully encoded and decoded, which also means my Server saved the data, and each time i startgame will updated.

@@ -70,8 +70,6 @@
 				5422326D2C8DC35A006EA678 /* GridOfGreedWSApp.swift */,
 				5422326F2C8DC35A006EA678 /* ContentView.swift */,
 				54C9056A2C907557001920C2 /* SideBar.swift */,
-				541B82A82C9F1E4800466BA3 /* GameMenu.swift */,
-				5409B92D2CB6913800E00651 /* PaintView.swift */,
 				54C905672C906274001920C2 /* Tab */,
 				54C905622C8F2302001920C2 /* Manager */,
 				542232712C8DC35B006EA678 /* Assets.xcassets */,
@@ -101,8 +99,10 @@
 		54C905672C906274001920C2 /* Tab */ = {
 			isa = PBXGroup;
 			children = (
+				541B82A82C9F1E4800466BA3 /* GameMenu.swift */,
 				54C905652C9061A3001920C2 /* Tabs.swift */,
 				54C905682C906284001920C2 /* TabView.swift */,
+				5409B92D2CB6913800E00651 /* PaintView.swift */,
 			);
 			path = Tab;
 			sourceTree = "<group>";

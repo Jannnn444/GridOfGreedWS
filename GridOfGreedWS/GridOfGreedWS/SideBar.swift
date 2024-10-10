@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SideBar: View {
     @State private var tabState: Tabs = .world
-    @State private var colorChoice = Color.dracula  // here should pass changes to ContentView!!!
+    @State private var colorChoice = Color.greenApple  // here should pass changes to ContentView!!!
     
     var body: some View {
 //        Text("HOMEPAGE")
